@@ -965,3 +965,204 @@
 
 **第四步，**启动项目：npm start
 
+#### 9.3 React 脚手架项目结构分析
+
+**public** -- 静态资源文件夹
+
+* favicon.icon -- 网站页签图标
+* **index.html -- 主页面**
+* logo192.png -- logo 图
+* logo512.png -- logo 图
+* manifest.json -- 应用加壳的配置文件
+* robots.txt -- 爬虫协议文件
+
+**src** -- 源码文件夹
+
+* App.css -- APP 组件的样式
+* **App.js -- App 组件**
+* App.test.js -- 用于给 APP 做测试
+* index.css -- 样式
+* **index.js -- 入口文件**
+* logo.svg -- logo 图
+* reportWebVitals.js -- 页面性能分析文件（需要 web-vitals 库的支持）
+* setupTests.js -- 组件单元测试的文件（需要 jest-dom 库的支持）
+
+#### 9.4 重构 React 脚手架项目结构（示例）
+
+**基本目录：**
+
+**public** -- 静态资源文件夹
+
+* favicon.icon -- 网站页签图标
+
+* **index.html -- 主页面**
+
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邂逅 React 脚手架</title>
+  </head>
+  
+  <body>
+    <div id="root"></div>
+  </body>
+  
+  </html>
+  ```
+
+**src** -- 源码文件夹
+
+* **components -- 存放组件的文件夹** 
+
+  * Hello -- 存放 Hello 组件的文件夹
+
+    * index.css -- Hello 组件的样式
+
+      ```css
+      .hello {
+        background-color: pink;
+      }
+      ```
+
+    * index.jsx -- Hello 组件的内容
+
+      ```javascript
+      // 从 react 核心库中单独导入 React.Component
+      import { Component } from 'react'
+      // 导入 index.css 文件
+      import './index.css'
+      
+      // 创建并默认导出类 Hello 组件
+      export default class Hello extends Component {
+        render() {
+          return (
+            <h2 className="hello">Hello， itchao！</h2>
+          )
+        }
+      }
+      ```
+
+* **App.js -- App 组件**
+
+  ```javascript
+  // 引入 React 核心库
+  import { Component } from 'react';
+  // 导入 Hello 组件
+  import Hello from './components/Hello'
+  
+  
+  // 创建并默认导出类 App 组件
+  export default class App extends Component {
+    render() {
+      return (
+        <h2><Hello /></h2>
+      )
+    }
+  }
+  ```
+
+* **index.js -- 入口文件**
+
+  ```javascript
+  // 引入 React 核心库
+  import React from 'react';
+  // 引入 ReactDOM 虚拟DOM
+  import ReactDOM from 'react-dom';
+  // 引入 App 组件
+  import App from './App'
+  
+  // 渲染组件
+  ReactDOM.render(<App />, document.getElementById('root'))
+  ```
+
+**注意：**
+
+* 组件后缀用 .jsx 或 .js 结尾都可以，推荐 .jsx，便于直接分辨该文件是组件文件
+* 创建 components 文件夹，便于管理组件
+* components 文件夹下再创建相关组件的文件夹（大写开头且使用驼峰命名法），便于独立管理相关组件
+* 使用 index.css 和 index.jsx 取名的作用：便于书写路径，因为导入文件时会默认查找该文件夹下的 index 文件
+* 可以直接使用组件名字定义组件文件，例如 Hello 组件，可用：hello.css 和 hello.jsx，但导入时书写路径不方便
+* 在导入文件时， .jsx 和 .js 后缀名可省略，.css 后缀名不可省略
+
+**样式模块化：**
+
+* Hello 组件例子：
+
+  * 目录结构：
+
+    * Hello (文件夹)：
+      * index.jsx
+      * index.module.css
+
+  * 具体代码：
+
+    * index.jsx
+
+      ```javascript
+      // 从 react 核心库中单独导入 React.Component
+      import { Component } from 'react'
+      // 导入 index.css 文件(关键)
+      import hello from './index.module.css'
+      
+      // 创建并默认导出类 Hello 组件
+      export default class Hello extends Component {
+        render() {
+          return (
+            // 关键：使用{}且用了导入的 hello.title 获取类名
+            <h2 className={hello.title}>Hello， itchao！</h2>
+          )
+        }
+      }
+      ```
+
+    * index.module.css
+
+      ```css
+      .title {
+        background-color: pink;
+      }
+      ```
+
+### 10. 功能界面的组件化编码流程（通用）
+
+#### 10.1 组件化编码流程
+
+1. 拆分组件：拆分界面，抽取组件 
+
+2. 实现静态组件：使用组件实现静态页面效果
+
+3. 实现动态组件
+
+   3.1 动态显示初始化数据
+
+   ​	3.1.1 数据类型
+
+   ​	3.1.2 数据名称
+
+   ​	3.1.3 保存在哪个组件
+
+   3.2 交互操作（从绑定事件监听开始）
+
+### 11. React ajax
+
+#### 11.1 理解
+
+##### 11.1.1 前置说明
+
+1. React 本身只关注于界面，不包含发送 ajax 请求代码
+2. 前端应用需要通过 ajax 请求与后台进行交互（JSON 数据）
+3. React 应用中需要集成第三方 ajax 库（或自己封装）
+
+##### 11.1.2 常见 ajax 请求库
+
+1. jQuery：代码多，需要另外引入，不建议使用
+2. axios：轻量级，建议使用
+   * 封装 XMLHttpRequest 对象的 ajax
+   * Promise 风格
+   * 可以在浏览器端和 node 服务器端使用 
+

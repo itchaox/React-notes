@@ -1166,3 +1166,222 @@
    * Promise 风格
    * 可以在浏览器端和 node 服务器端使用 
 
+#### 11.2 axios
+
+##### 11.2.1 github 文档
+
+* https://github.com/axios/axios
+
+##### 11.2.2 相关 API
+
+1. get 请求
+
+```javascript
+axios.get('/user?id=12345')
+  .then( res => {
+    console.log(res.data);
+  })
+  .catch( err => {
+    console.log(err);
+  });
+
+axios.get('/user', {
+    params: {
+      id: 12345
+    }
+  })
+ .then( res => {
+    console.log(res.data);
+  })
+  .catch( err => {
+    console.log(err);
+  });
+```
+
+2. post 请求
+
+```javascript
+axios.post('/user', {
+  firstName: 'Fred',
+  lastName: 'Flintstone'
+})
+ .then( res => {
+    console.log(res.data);
+  })
+  .catch( err => {
+    console.log(err);
+  });
+```
+
+#### 11.3 消息订阅-发布机制
+
+1. 工具库：PubSubJS
+2. 下载：npm install pubsub-js--save
+3. 使用方式：
+   1. `import PubSub from 'pubsub-js' // 引入`
+   2. `PubSub.subscribe('itchao', function(data) { })  // 订阅`消息
+   3. `PubSub.publish('itchao', data) // 发布消息`
+
+#### 11.4 扩展：Fetch
+
+##### 11.4.1 文档
+
+1.  https://github.github.io/fetch/
+2. https://segmentfault.com/a/1190000003810652
+
+##### 11.4.2 特点
+
+1. fetch：原生函数，不再使用 XMLHttpRequest 对象提交 ajax 请求
+2. 兼容性存在问题，老版本浏览器可能不支持
+
+##### 11.4.3 相关 API
+
+1. get 请求
+
+```javascript
+fetch(url).then( res => {
+    return res.json()
+  }).then( data => {
+    console.log(data)
+  }).catch( err => {
+    console.log(err)
+  });
+```
+
+2. post 请求
+
+```javascript
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  }).then( data => {
+    console.log(data)
+  }).catch( err => {
+    console.log(err)
+  });
+```
+
+### 12. React 路由
+
+#### 12.1 相关概念理解
+
+##### 12.1.1 SPA（单页面富应用）的理解
+
+1. 单页面 Web 应用（SPA）
+2. 整个应用**只有一个完整页面**
+3. 点击页面中的链接**不会刷新页面**，只会做页面的**局部更新**
+4. 数据都需要通过 ajax 请求获取，并在前端异步展示
+
+##### 12.1.2 路由的理解
+
+**一. 什么是路由？**
+
+1. 一个路由就是一个映射关系（key: value）
+2. key 为路径，value 可能是 function 或 component
+
+**二. 路由分类**
+
+1. 后端路由：
+   1. 理解：value 是 function，用来处理客户端提交的请求
+   2. 注册路由：router.get(path, function(req, res))
+   3. 工作过程：当 node 接收到一个请求时，根据请求路径找到匹配的路由，调用路由中的函数来处理请求，返回响应数据
+2. 前端路由：
+   1. 浏览器端路由：value 是 component，用于展示页面内容
+   2. 注册路由：`<Router path='/test' component={Test}>`
+   3. 工作过程：当浏览器的 path 变为 /test 时，当前路由组件会变成 Test 组件
+
+##### 12.1.3 react-router-dom 的理解
+
+1. react 的一个插件库
+2. 专门用来实现一个 SPA 应用
+3. 基于 react 的项目基本都会用到此库
+
+#### 12.2 React 路由基本使用
+
+1. 明确好界面中的导航区、展示区
+
+2. 导航区的a标签改为Link标签
+
+   ​	`<Link to='/abc'>Demo</Link>`
+
+3. 展示区写Route标签进行路径匹配
+
+   ​	`<Route path='/abc' component={Demo}/>`
+
+   * 如果出现报错可能需要写成如下格式：
+
+     ```javascript
+     <Routes>
+       <Route path='/about' element={<About/}/>
+       <Route path='/home' element={<Home/}/>
+     </Routes>
+     ```
+
+4. <App> 的最外侧包裹了一个 <BrowserRouter> 或 <HashRouter>
+
+#### 12.3 路由组件与一般组件的区别
+
+1. 写法不同：
+   * 一般组件：<Demo />
+   * 路由组件：<Route path='/demo' component={Demo}/>
+
+2. 存放位置不同：
+   * 一般组件：components 文件夹下
+   * 路由组件：pages 文件夹下
+3. 接收到的 props 不同：
+   * 一般组件：写组件标签时传递什么，就接收到什么
+   * 路由组件：接收到三个固定属性
+     * history：
+       * go: f go(n)
+       * goBack: f goBack( )
+       * goForward: f goForward( )
+       * push: f push(path, state)
+       * replace: f replace(path, state)
+     * location:
+       * pathname: '/about'
+       * search: ' '
+       * state: undefined
+     * match:
+       * params: { }
+       * path: '/about'
+       * url: '/about'
+
+#### 12.4 NavLink 和封装 NavLink
+
+1. NavLink 可以实现路由链接的高亮显示，通过 activeClassName 指定样式名（该属性现在好像不支持）
+2. 标签体内容是一个特殊的标签属性
+3. 通过 this.props.children 可以获取到标签体内容
+
+#### 12.5 Switch 基本使用
+
+1. 通常情况下，path 和 component 是唯一对应的关系
+2. Switch 可以提高路由匹配效率（单一匹配）
+
+#### 12.6 解决多级路径刷新页面样式丢失问题
+
+1. public/index.html 中，引入样式时不写 ./ 写 /（常用）
+2. public/index.html 中，引入样式时不写 ./ 写 %PUBLIC_URL&（常用，但只能在 React 中使用）
+3. 使用 `<HashRouter></HashRouter>`
+
+ #### 12.7 路由的严格匹配和模糊匹配
+
+1. 默认使用模糊匹配（【输入的路径】必须包含【匹配的路径】，且顺序要一致）
+2. 开启严格匹配: `<Route exact={true} path='/about' component={About} />`
+3. 严格匹配不要随便开启，需要时再开，有时开启会导致无法继续匹配二级路由
+
+#### 12.8 Redirect 重定向的使用
+
+1. 一般写在所有路由注册的最下方，当所有路由都无法匹配时，跳转到 Redirect 指定的路由
+
+2. 示例：
+
+   ```javascript
+      <Routes>
+         <Route path='/about' element={<About />} />
+         <Route path='/home' element={<Home />} />
+         <Redirect to='/about' />
+      </Routes>
+   ```
+
+3. 注意：好像现在不支持`<Redirct />`，需要后续再查下现在重定向怎么使用
+

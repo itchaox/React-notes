@@ -1385,3 +1385,100 @@ fetch(url).then( res => {
 
 3. 注意：好像现在不支持`<Redirct />`，需要后续再查下现在重定向怎么使用
 
+#### 12.9 嵌套路由
+
+1. 注册子路由时要写上父路由的 path 值
+2. 路由的匹配是按照注册路由的顺序进行
+
+**注意：**
+
+* 上述规则好像在新的路由里面不适用了，需要更改一下
+
+**嵌套路由新规则：**（示例如下）
+
+1. 父路由中注册路由：
+
+   ```javascript
+      <Routes>
+         <Route path='/about/*' element={<About />} />  // 关键点：path属性的末尾需要追加 /*
+         <Route path='/home/*' element={<Home />} />
+      </Routes>
+   ```
+
+   
+
+2. 子路由中 NavLink 组件：
+
+   ```javascript
+      <NavLink to='/home/news'>News</NavLink>  // 关键点：to属性中path需要写完整的嵌套路径
+      <NavLink to='/home/message'>Message</NavLink>
+   ```
+
+3. 子路由中注册路由:
+
+   ```javascript
+      <Routes>
+         <Route path='/news' element={<News />} />  // 关键点：path属性的只需要写子路由路径即可
+         <Route path='/message' element={<Message />} />
+      </Routes>
+   ```
+
+#### 12.10 向路由组件传递参数
+
+1. params 参数 (V6 好像不适用)
+   1. 路由链接（携带参数）：`<Link to='/demo/test/itchao/22'>详情</Link>`
+   2. 注册路由（声明接收）：`<Route path='/demo/test/:name/:age' component={Test} />`
+   3. 接收参数：`this.props.match.params`
+
+2. search 参数 (V6 好像不适用)
+   1. 路由链接（携带参数）：`<Link to='/demo/test?name=itchao&age=22'>详情</Link>`
+   2. 注册路由（无需声明，正常注册即可）：`<Route path='/demo/test' component={Test} />`
+   3. 接收参数：`this.props.location.search`
+   4. 注意：获取到的 search 是 urlencoded 编码字符串，需要借助 querystring 解析
+3. state 参数 (V6 好像不适用)
+   1. 路由链接（携带参数）：`<Link to={{pathname: '/demo/test', state:{name: 'itchao', age: 22}}>详情</Link>`
+   2. 注册路由（无需声明，正常注册即可）：`<Route path='/demo/test' component={Test} />`
+   3. 接收参数：`this.props.location.state`
+   4. 注意：刷新也可保留参数
+
+#### 12.11 编程式路由导航
+
+1. 借助 this.props.history 对象上的 API 操作路由进行跳转、前进、后退
+   * this.props.history.push( )
+   * this.props.history.replace( )
+   * this.props.history.goBack( )
+   * this.props.history.goForward( )
+   * this.props.history.go( )
+
+#### 12.12 withRouter
+
+* withRouter 可以加工一般组件，让一般组件具备路由组件所特有的 API
+* withRouter 的返回值是一个新组件
+* 用法示例：`export default withRouter(Header)`
+
+#### 12.13 BrowserRouter 与 HashRouter 的区别
+
+1. 底层原理不一样：
+   * BrowserRouter 使用的是 H5 的 history API，不兼容 IE9 及以下版本
+   * HashRouter  使用的是 URL 的哈希值
+2. path 的表现形式不一样
+   * BrowserRouter 的路径中没有 #，例如：localhost:3000/demo/test
+   * HashRouter  的路径包含 #，例如：localhost:3000/#/demo/test
+3. 刷新后对路由 state 参数的影响
+   * BrowserRouter 没有任何影响，因为 state 保存在 history 对象中
+   * HashRouter  刷新后会导致路由 state 参数丢失
+4. 注意：HashRouter 可用于解决一些路径错误相关问题
+
+### 13. React UI 组件库
+
+#### 13.1. 流行的开源React UI组件库
+
+1. material-ui(国外)
+   1. 官网: [http://www.material-ui.com/#/](#/)
+
+   2. github: https://github.com/callemall/material-ui
+
+2. ant-design(国内蚂蚁金服)
+   1. 官网: https://ant.design/index-cn
+
+   2. Github: https://github.com/ant-design/ant-design/

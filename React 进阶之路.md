@@ -1482,3 +1482,60 @@ fetch(url).then( res => {
    1. 官网: https://ant.design/index-cn
 
    2. Github: https://github.com/ant-design/ant-design/
+
+### 14. redux
+
+#### 14.1 redux 理解
+
+##### 14.1.1 学习文档
+
+1. 英文文档: https://redux.js.org/
+
+2. 中文文档: http://www.redux.org.cn/
+
+3. Github: https://github.com/reactjs/redux
+
+##### 14.1.2 redux 是什么
+
+1. redux 是一个专门用于做**状态管理**的JS库（不是 react 插件库）
+2. 可以用于 react、angular、vue 等项目中，但在 react 中用的最多
+3. 作用：集中式管理 react 应用中多个组件**共享状态**
+
+##### 14.1.3 redux 使用场景
+
+1. 某个组件的状态，需要让其他组件拿到（共享）
+2. 一个组件需要改变另一个组件的状态（通信）
+3. 总体原则：尽量不用，除非必须用的情况才考虑使用
+
+##### 14.1.4 redux 工作流程
+
+![](.\React 相关图片\redux 原理图.jpg)
+
+#### 14.2 redux 三个核心概念
+
+##### 14.2.1 action
+
+1. 动作对象
+2. 包含2个属性
+   * type：标识属性，值为字符串，唯一，必要属性
+   * data：数据属性，值为任意类型，可选属性
+3. 例子：{ type: 'ADD_STUDENT',data:{name: 'itchao',age:22} }
+
+##### 14.2.2 reducer
+
+1. 初始化状态
+2. 加工状态：根据旧的 state 和 action，产生新的 state 的**纯函数**
+
+##### 14.2.3 store
+
+1. 将state、action、reducer联系在一起的对象
+
+2. 如何得到此对象?
+   1. import {createStore} from 'redux'
+   2. import reducer from './reducers'
+   3. const store = createStore(reducer)
+
+3. 此对象的功能?
+   1. getState(): 得到state
+   2. dispatch(action): 分发action, 触发reducer调用, 产生新的state
+   3. subscribe(listener): 注册监听, 当产生了新的state时, 自动调用

@@ -1539,3 +1539,139 @@ fetch(url).then( res => {
    1. getState(): 得到state
    2. dispatch(action): 分发action, 触发reducer调用, 产生新的state
    3. subscribe(listener): 注册监听, 当产生了新的state时, 自动调用
+
+#### 14.3 redux 核心 API
+
+##### 14.3.1 createstore( )
+
+作用：创建包含指定 reducer 的 store 对象
+
+##### 14.3.2 store 对象
+
+​	1. 作用: redux 库最核心的管理对象 
+
+2. 它内部维护着: 
+   1. state 
+   2. reducer 
+
+3. 核心方法:
+   1. getState() 
+   2. dispatch(action) 
+   3. subscribe(listener) 
+
+4. 具体编码: 
+   1. store.getState() 
+   2. store.dispatch({type:'INCREMENT', number}) 
+   3. store.subscribe(render) 
+
+##### 14.3.3 applyMiddleware( )
+
+作用：应用上基于 redux 的中间件(插件库)
+
+##### 14.3.4 combineReducers( )
+
+作用：合并多个 reducer 函数
+
+#### 14.4 redux 异步编程
+
+##### 14.4.1 理解
+
+1.redux默认是不能进行异步处理的,
+
+2.某些时候应用中需要在redux中执行异步任务(ajax,定时器)
+
+##### 14.4.2 使用异步组件
+
+* npm install --save redux-thunk
+
+#### 14.5 react-redux
+
+##### 14.5.1 理解
+
+1.一个react插件库
+
+2.专门用来简化react应用中使用redux
+
+##### 14.5.2 react-Redux将所有组件分成两大类
+
+1.UI组件：
+
+1. 只负责UI的呈现，不带有任何业务逻辑
+2. 通过props接收数据(一般数据和函数)
+3. 不使用任何Redux的API
+4. 一般保存在components文件夹下
+
+2.容器组件:
+
+1. 负责管理数据和业务逻辑，不负责UI的呈现
+2. 使用Redux的API
+3. 一般保存在containers文件夹下
+
+##### 14.5.3 相关 API
+
+1.Provider：让所有组件都可以得到state数据
+
+```javascript
+<Provider store={store}> 
+  <App /> 
+</Provider>
+```
+
+2. connect：用于包装 UI 组件生成容器组件
+
+```javascript
+import { connect } from 'react-redux' 
+connect( 
+  mapStateToprops, 
+  mapDispatchToProps 
+)(Counter)
+```
+
+3. mapStateToprops：将外部的数据（即 state 对象）转换为 UI 组件的标签属性
+
+```javascript
+const mapStateToprops = function (state) {
+  return { value: state 
+         } 
+}
+```
+
+4. mapDispatchToProps：将分发 action 的函数转换为 UI 组件的标签属性
+
+#### 14.6 redux 调试工具
+
+##### 14.6.1 安装 chrome 浏览器插件
+
+* Redux DevTools
+
+##### 14.6.2 下载工具依赖包
+
+* npm install --save-dev redux-devtools-extension
+
+### 15. 纯函数和高阶函数
+
+#### 15.1 纯函数
+
+1. 一类特别的函数: 只要是同样的输入(实参)，必定得到同样的输出(返回) 
+
+2. 必须遵守以下一些约束 
+   1. 不得改写参数数据 
+   2. 不会产生任何副作用，例如网络请求，输入和输出设备 
+   3. 不能调用 Date.now()或者 Math.random()等不纯的方法 
+
+3. redux 的 reducer 函数必须是一个纯函数
+
+#### 15.2 高阶函数
+
+1. 理解: 一类特别的函数 
+   1. 情况 1: 参数是函数 
+   2. 情况 2: 返回是函数 
+
+2. 常见的高阶函数: 
+   1. 定时器设置函数 
+   2. 数组的 forEach()/map()/filter()/reduce()/find()/bind() 
+   3. promise 
+   4. react-redux 中的 connect 函数 
+
+3. 作用: 能实现更加动态, 更加可扩展的功能
+

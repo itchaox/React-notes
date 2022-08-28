@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+
+  <!-- 引入依赖 -->
+  <!-- CDN 引入 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- babel -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    const root = ReactDOM.createRoot(document.querySelector('#root'))
+
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          list: ['楚门的世界', '触不可及', '独行月球']
+        }
+      }
+
+      render() {
+        return (
+          <div>
+            <h2>电影列表</h2>
+            <ul>
+              {this.state.list.map(i => <li key={i}>{i}</li>)}
+            </ul>
+          </div>
+        )
+      }
+    }
+
+    root.render(<App />)
+  </script>
+</body>
+
+</html>

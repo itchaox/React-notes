@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+
+  <!-- 引入依赖 -->
+  <!-- CDN 引入 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- babel -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    // React18 之前
+    // ReactDOM.render(<h1>Hello world!</h1>, document.getElementById("root"))
+
+    // React18 之后
+    const root = ReactDOM.createRoot(document.querySelector('#root'))
+    const hello = <h2>Hello world!</h2>
+    root.render(hello)
+  </script>
+</body>
+
+</html>

@@ -22,7 +22,22 @@
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
   <script type="text/babel">
-    const root = ReactDOM.createRoot(document.querySelector('#root'))
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state={
+
+        }
+      }
+
+      render () {
+        return (
+          <div>
+          </div>
+        )
+      }
+    }
+    const root=ReactDOM.createRoot(document.querySelector('#root'))
     root.render(<App />)
   </script>
 </body>

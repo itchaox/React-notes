@@ -1,0 +1,67 @@
+<!--
+ * @Desc: 
+ * @Version: v1.00
+ * @Author: wc
+ * @Date: 2022-08-29 10:09:37
+ * @LastEditors: wc
+ * @LastEditTime: 2022-08-29 10:18:05
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+
+  <!-- 引入依赖 -->
+  <!-- CDN 引入 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- babel -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state={
+          list: ['流浪地球','独行月球','啊啊撒','阿达大大大是的'],
+          curText: '1111'
+        }
+      }
+
+      changeText () {
+        this.setState({
+          curText: '2222'
+        })
+
+      }
+
+      render () {
+        return (
+          <div>
+            <ul>
+              {this.state.list.map(i => <li key={i}>{i}</li>)}
+            </ul>
+            <h2>{this.state.curText}</h2>
+            <button onClick={() => this.changeText()}>changeText</button>
+          </div>
+        )
+      }
+    }
+    const root=ReactDOM.createRoot(document.querySelector('#root'))
+    root.render(<App />)
+  </script>
+</body>
+
+</html>

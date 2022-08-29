@@ -1,0 +1,99 @@
+<!--
+ * @Desc: 
+ * @Version: v1.00
+ * @Author: wc
+ * @Date: 2022-08-29 09:08:36
+ * @LastEditors: wc
+ * @LastEditTime: 2022-08-29 09:57:21
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复习 JSX</title>
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+
+  <!-- 引入依赖 -->
+  <!-- CDN 引入 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- babel -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    // 严格模式下, 默认绑定指向 undefined
+    // 非严格模式下, 默认绑定指向 window
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state={
+          messages: 'Hello, world!'
+        }
+
+        this.btnClick=this.btnClick.bind(this) // 绑定 this
+      }
+
+      btnClick (e) {
+        console.log(this,'state',e)
+      }
+
+      fooClick () {
+        console.log(this,'foo')
+      }
+
+      changeClick=() => {
+        // 利用箭头函数没有 this 特性, 找到对应 this
+        console.log(this.state.messages)
+        this.setState({
+          messages: 'Hello React!'
+        })
+      }
+
+      barClick1 (e) {
+        console.log('222',e)
+      }
+
+      barClick2 (e,a,c) {
+        console.log('2',e,a,c)
+      }
+
+      render () {
+        return (
+          <div>
+            <h1>复习 JSX</h1>
+            <div>22</div>
+            {/* constructor 绑定 this */}
+            <button onClick={this.btnClick}>constructor 绑定 this</button>
+
+            {/* 直接绑定 this */}
+            <button onClick={this.fooClick.bind(this)}> 直接绑定 this</button>
+
+            <h2>{this.state.messages}</h2>
+
+            {/* 直接把方法写成箭头函数 this */}
+            <button onClick={this.changeClick}>修改文本</button>
+
+            {/* (最推荐! 传参方便!)使用时直接写成箭头函数 */}
+            <button onClick={(e) => this.barClick1(e)}>直接写箭头函数(传递事件对象)</button>
+            <button onClick={(e) => this.barClick2(e,'itchao','23')}>直接写箭头函数(传递额外参数)</button>
+          </div>
+        )
+      }
+    }
+
+    const root=ReactDOM.createRoot(document.querySelector('#root'))
+    root.render(<App />)
+  </script>
+</body>
+
+</html>

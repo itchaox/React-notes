@@ -1,0 +1,61 @@
+<!-- /*
+* @Desc:
+* @Version: v1.00
+* @Author: wc
+* @Date: 2022-08-30 15:02:41
+* @LastEditors: wc
+* @LastEditTime: 2022-08-30 15:02:41
+*/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- 引入依赖 -->
+  <!-- CDN 引入 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- babel -->
+  <!-- <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+
+  <script>
+    // <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state={};
+      }
+
+      render () {
+        const el=React.createElement('div',null,React.createElement('h1',null,'JSX 本质和原理'),React.createElement('h1',null,'JSX 转换后写法'))
+
+        return el
+      }
+
+      // render () {
+      //   return (
+      //     <div>
+      //       <h1>JSX 本质和原理</h1>
+      //       <h2>JSX 转换后写法</h2>
+      //     </div>
+      //   );
+      // }
+    }
+    const root=ReactDOM.createRoot(document.querySelector("#root"));
+    // root.render(
+    //   <App />);
+    root.render(React.createElement(App,null))
+  </script>
+</body>
+
+</html>

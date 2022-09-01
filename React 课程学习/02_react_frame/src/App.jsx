@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-import HelloWorld from "./components/HelloWorld"
+import HelloWorld from "./components/HelloWorld";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <h2>Hello React 项目 App 组件!</h2>
       <HelloWorld />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

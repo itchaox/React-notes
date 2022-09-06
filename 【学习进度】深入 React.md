@@ -7,5 +7,9 @@
 5. 脚手架-项目目录结构-项目组织方式-render函数（2022年9月1日14:39:02）（回放）
 6. 组件生命周期-父子传参-跨组件通讯-Context（2022年9月2日17:41:37）（回放）
 7. setState同步或异步更新-列表key的作用-memo使用（2022年9月3日10:48:53）（回放）
-8. 
+8. 事件总线-获取DOM refs-受控组件-高阶组件（2022年9月4日08:33:44）（回放）
+9. React中fragment-css modules-css in js-tailwind（2022年9月5日18:36:47）（回放）
+10. ant-design库-axios的封装-react-transition动画（2022年9月6日09:32:37）（回放）
+11. redux的使用-react-redux-react-saga-中间件原理（2022年9月6日17:45:31）（回放）
+12. react-router-路由嵌套-动态路由-路由传参
 

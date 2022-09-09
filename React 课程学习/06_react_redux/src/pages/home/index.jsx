@@ -1,12 +1,20 @@
+/*
+ * @Desc:
+ * @Version: v1.00
+ * @Author: wc
+ * @Date: 2022-09-08 22:02:58
+ * @LastEditors: wc
+ * @LastEditTime: 2022-09-09 22:55:23
+ */
 import React, { useState } from "react"
 import store from "../../store"
-import { changeCountAction } from "../../store/actionCreators.js"
+import { changeCountAction } from "../../store/modules/home/actionCreators"
 
 function Home() {
   const [count, setCount] = useState(0)
 
   store.subscribe(() => {
-    setCount(store.getState().count)
+    setCount(store.getState().home.count)
   })
 
   return (

@@ -4,13 +4,12 @@
  * @Author: wc
  * @Date: 2022-09-08 22:11:11
  * @LastEditors: wc
- * @LastEditTime: 2022-09-09 23:05:53
+ * @LastEditTime: 2022-09-10 21:58:01
  */
 
 import { createStore, applyMiddleware, compose, combineReducers } from "redux"
 import thunk from "redux-thunk"
 
-// import reducer from "./reducer"
 import homeReducer from "./modules/home"
 import userReducer from "./modules/user"
 

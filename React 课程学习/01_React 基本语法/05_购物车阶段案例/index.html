@@ -25,16 +25,15 @@
 
   <script type="text/babel">
     class App extends React.Component {
-      constructor(props) {
-        super(props)
-        this.state = {
+      constructor() {
+        super()
+        this.state={
           book: books
         }
       }
 
-      render() {
-        const {book} = this.state
-        console.log(typeof book);
+      render () {
+        const {book}=this.state
         return (
           <div>
             {books}
@@ -42,7 +41,7 @@
         )
       }
     }
-    const root = ReactDOM.createRoot(document.querySelector('#root'))
+    const root=ReactDOM.createRoot(document.querySelector('#root'))
     root.render(<App />)
   </script>
 </body>
